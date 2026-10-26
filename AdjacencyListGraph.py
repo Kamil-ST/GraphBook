@@ -35,3 +35,15 @@ class AdjacencyListGraph(BaseGraph):
         if v not in self._adj: raise KeyError("")
         return self._adj[u][v]
 
+    def remove_edge(self,u,v):
+        if u not in self._adj: raise KeyError("")
+        if v not in self._adj: raise KeyError("")
+        if v not in self._adj[u]:raise KeyError("")
+        self._adj[u].pop(v)
+        self._adj[v].pop(u,None)
+
+    def remove_node(self, node: Node) -> None:
+        if node not in self._adj: raise KeyError("Brak wierzcholka")
+        for v in list(self._adj[node]):
+            self.remove_edge(node,v)
+        self._adj.pop(node,None)
